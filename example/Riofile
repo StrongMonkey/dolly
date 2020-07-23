@@ -1,0 +1,23 @@
+configs:
+  conf:
+    index.html: |-
+      <!DOCTYPE html>
+      <html>
+      <body>
+
+      <h1>Hello World</h1>
+
+      </body>
+      </html>
+services:
+  nginx:
+    image: nginx # image to use
+    ports:
+    - 80:80/http # port to expose on service -> pods. 80/http assumes service port and container port are the same
+    configs: # config map to mount
+    - conf/index.html:/usr/share/nginx/html/index.html
+    permission: # namespaced-scoped permission with serviceaccount used by pod
+    - "list pods"
+    globalPermission: # cluster-scoped permission with serviceaccount used by pod
+    - "list services"
+

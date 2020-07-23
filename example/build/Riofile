@@ -1,0 +1,6 @@
+services:
+  demo:
+   build:
+     context: ./
+   ports:
+   - 80/http

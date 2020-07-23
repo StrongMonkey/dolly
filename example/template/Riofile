@@ -1,0 +1,14 @@
+services:
+{{- if eq .Values.DEMO "true" }}
+  demo:
+    image: ${IMAGE}
+    cpus: 100
+    ports:
+    - 80/http
+{{- end }}
+
+template:
+  goTemplate: true
+  envSubst: true
+  variables:
+  - DEMO
