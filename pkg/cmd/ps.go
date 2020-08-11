@@ -19,7 +19,7 @@ type Ps struct {
 	All       bool   `name:"all" usage:"print resource in all namespaces" short:"a"`
 	Namespace string `name:"namespace" usage:"print resource in one namespace" default:"default" short:"n"`
 	Pod       bool   `name:"pod" usage:"only show pods" short:"p"`
-	Quite     bool   `name:"quite" usage:"only print ID" short:"q"`
+	Quiet     bool   `name:"quiet" usage:"only print ID" short:"q"`
 	Format    string `name:"format" usage:"format(yaml/json/jsoncompact/raw)"`
 }
 
@@ -38,7 +38,7 @@ func (p *Ps) Run(cmd *cobra.Command, args []string) error {
 		for i := range pods.Items {
 			output = append(output, &pods.Items[i])
 		}
-		w := tables.NewPods(namespace, p.Format, p.Quite)
+		w := tables.NewPods(namespace, p.Format, p.Quiet)
 		return w.Write(output)
 	}
 
@@ -69,6 +69,6 @@ func (p *Ps) Run(cmd *cobra.Command, args []string) error {
 		output = append(output, &statefulsets.Items[i])
 	}
 
-	w := tables.NewService(namespace, p.Format, p.Quite)
+	w := tables.NewService(namespace, p.Format, p.Quiet)
 	return w.Write(output)
 }
