@@ -56,9 +56,9 @@ $ export KUBECONFIG=/path/to/your/config
 $ dolly up -f https://raw.githubusercontent.com/StrongMonkey/dolly/master/example/Riofile 
 ```
 
-### Documentaion
+### Documentation
 
-Detailed documentation can be found in [here](./docs/README.md)
+Detailed documentation can be found in [here](https://dolly.do.rancher.space)
 
 ## License
 Copyright (c) 2020 [Rancher Labs, Inc.](http://rancher.com)

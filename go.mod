@@ -17,9 +17,9 @@ require (
 	github.com/docker/go-units v0.4.0
 	github.com/drone/envsubst v1.0.2
 	github.com/fatih/color v1.7.0
+	github.com/fsnotify/fsnotify v1.4.9
 	github.com/huandu/xstrings v1.3.2 // indirect
 	github.com/imdario/mergo v0.3.9 // indirect
-	github.com/json-iterator/go v1.1.10 // indirect
 	github.com/mattn/go-shellwords v1.0.10
 	github.com/mitchellh/copystructure v1.0.0 // indirect
 	github.com/opencontainers/go-digest v1.0.0 // indirect
@@ -30,14 +30,14 @@ require (
 	github.com/spf13/cobra v1.0.0
 	github.com/stretchr/testify v1.6.1
 	github.com/wercker/stern v0.0.0-20190705090245-4fa46dd6987f
-	golang.org/x/net v0.0.0-20200707034311-ab3426394381 // indirect
 	golang.org/x/oauth2 v0.0.0-20200107190931-bf48bf16ab8d // indirect
 	golang.org/x/time v0.0.0-20200630173020-3af7569d3a1e // indirect
 	gopkg.in/yaml.v2 v2.2.8
 	gopkg.in/yaml.v3 v3.0.0-20200313102051-9f266ea9e77c
-	k8s.io/api v0.18.5
-	k8s.io/apimachinery v0.18.5
-	k8s.io/client-go v0.18.0
-	k8s.io/utils v0.0.0-20200619165400-6e3d28b6ed19 // indirect
+	k8s.io/api v0.19.3
+	k8s.io/apimachinery v0.19.3
+	k8s.io/cli-runtime v0.19.3
+	k8s.io/client-go v0.19.3
+	k8s.io/kubectl v0.19.3
 	sigs.k8s.io/yaml v1.2.0
 )

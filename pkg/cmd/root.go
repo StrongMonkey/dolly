@@ -6,11 +6,13 @@ import (
 	"github.com/rancher/wrangler/pkg/kubeconfig"
 	"github.com/spf13/cobra"
 	"k8s.io/client-go/kubernetes"
+	"k8s.io/client-go/rest"
 )
 
 var (
 	Apply        apply.Apply
 	K8sInterface kubernetes.Interface
+	RestConfig   *rest.Config
 	Kubeconfig   string
 	Debug        bool
 )
@@ -54,6 +56,7 @@ func (a *Dolly) PersistentPre(cmd *cobra.Command, args []string) error {
 	}
 	k8s := kubernetes.NewForConfigOrDie(config)
 	K8sInterface = k8s
+	RestConfig = config
 	Apply = apply.New(k8s.Discovery(), apply.NewClientFactory(config)).WithRateLimiting(20.0)
 	return nil
 }

@@ -1,0 +1,31 @@
+site_name: Dolly - Compose file for k8s
+repo_url: https://github.com/StrongMonkey/dolly
+# Set to false for local docs development
+strict: false
+theme:
+  name: material
+  palette:
+    primary: blue
+  font:
+    text: 'Work Sans'
+  logo: 'assets/logo.svg'
+  #favicon: 'assets/favicon-32x32.png'
+#google_analytics:
+plugins:
+  - search
+  - markdownextradata: {}
+markdown_extensions:
+  - codehilite
+  - admonition
+  - toc:
+      permalink: true
+nav:
+  - index.md
+  - installation.md
+  - quickstart.md
+  - Compose Reference:
+      - Reference: reference.md
+      - Templating: templating.md
+  - Advanced:
+      - Build: build.md
+      - Helm: helm.md

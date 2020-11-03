@@ -1,0 +1,18 @@
+configs:
+  conf:
+    index.html: |-
+      <!DOCTYPE html>
+      <html>
+      <body>
+
+      <h1>Hello World</h1>
+
+      </body>
+      </html>
+services:
+  nginx:
+    image: nginx # image to use
+    ports:
+    - 8082:80/http # port to expose on service -> pods. 80/http assumes service port and container port are the same
+    configs: # config map to mount
+    - conf:/usr/share/nginx/html/

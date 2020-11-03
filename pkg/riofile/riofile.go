@@ -80,6 +80,22 @@ func (r *Riofile) Build(push bool) error {
 	return nil
 }
 
+func (r *Riofile) NeedBuild() bool {
+	for _, service := range r.Services {
+		containers := utils.ToNamedContainers(service)
+		for _, container := range containers {
+			if container.Build == nil {
+				continue
+			}
+			image := container.Image
+			if image == "" {
+				return true
+			}
+		}
+	}
+	return false
+}
+
 func runBuild(image string, build types.ImageBuild) error {
 	args := []string{"build"}
 	for _, arg := range build.Args {
