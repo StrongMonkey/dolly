@@ -6,7 +6,7 @@ import (
 	"strings"
 
 	"github.com/docker/distribution/reference"
-	"github.com/rancher/dolly/pkg/riofile/stringers"
+	"github.com/rancher/dolly/pkg/dollyfile/stringers"
 	"github.com/rancher/dolly/pkg/types"
 	"github.com/rancher/dolly/pkg/types/utils"
 	"github.com/rancher/wrangler/pkg/name"

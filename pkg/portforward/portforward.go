@@ -86,3 +86,14 @@ func setConfigDefaults(config *rest.Config) error {
 
 	return nil
 }
+
+func ChanWrapper(input <-chan struct{}) chan struct{} {
+	output := make(chan struct{}, 1)
+	go func() {
+		select {
+		case s := <-input:
+			output <- s
+		}
+	}()
+	return output
+}

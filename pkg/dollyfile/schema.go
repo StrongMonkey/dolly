@@ -1,8 +1,8 @@
-package riofile
+package dollyfile
 
 import (
-	riofilemapper "github.com/rancher/dolly/pkg/riofile/mapper"
-	"github.com/rancher/dolly/pkg/riofile/stringers"
+	riofilemapper "github.com/rancher/dolly/pkg/dollyfile/mapper"
+	"github.com/rancher/dolly/pkg/dollyfile/stringers"
 	"github.com/rancher/dolly/pkg/types"
 	"github.com/rancher/wrangler/pkg/schemas"
 	m "github.com/rancher/wrangler/pkg/schemas/mappers"
@@ -22,8 +22,8 @@ func init() {
 		Init(mappers).
 		Init(services).
 		Init(configs).
-		TypeName("Riofile", Riofile{}).
-		MustImport(Riofile{})
+		TypeName("DollyFile", DollyFile{}).
+		MustImport(DollyFile{})
 }
 
 func mappers(schemas *schemas.Schemas) *schemas.Schemas {

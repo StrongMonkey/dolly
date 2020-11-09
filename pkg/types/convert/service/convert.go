@@ -4,6 +4,9 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/rancher/dolly/pkg/dollyfile"
+	"k8s.io/apimachinery/pkg/runtime"
+
 	"github.com/rancher/dolly/pkg/types"
 	"github.com/rancher/dolly/pkg/types/convert/labels"
 	"github.com/rancher/dolly/pkg/types/utils"
@@ -12,14 +15,18 @@ import (
 	"k8s.io/apimachinery/pkg/util/intstr"
 )
 
-// ConvertService converts a rio service to k8s service
-func Convert(service types.Service) *v1.Service {
-	svc := newServiceSelector(service.Name, service.Namespace, v1.ServiceTypeClusterIP, service.Labels, labels.SelectorLabels(service))
-	if len(serviceNamedPorts(service)) > 0 {
-		svc.Spec.Ports = serviceNamedPorts(service)
+type Plugin struct{}
+
+func (p Plugin) Convert(rf *dollyfile.DollyFile) (ret []runtime.Object) {
+	for _, service := range rf.Services {
+		svc := newServiceSelector(service.Name, service.Namespace, v1.ServiceTypeClusterIP, service.Labels, labels.SelectorLabels(service))
+		if len(serviceNamedPorts(service)) > 0 {
+			svc.Spec.Ports = serviceNamedPorts(service)
+		}
+		ret = append(ret, svc)
 	}
 
-	return svc
+	return ret
 }
 
 func newServiceSelector(name, namespace string, serviceType v1.ServiceType, labels, selectorLabels map[string]string) *v1.Service {
@@ -64,5 +71,3 @@ func serviceNamedPorts(service types.Service) (servicePorts []v1.ServicePort) {
 
 	return
 }
-
-

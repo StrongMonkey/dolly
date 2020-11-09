@@ -1,4 +1,4 @@
-package riofile
+package dollyfile
 
 import (
 	"bytes"
@@ -15,8 +15,8 @@ import (
 )
 
 const (
-	defaultRiofile       = "Riofile"
-	defaultRiofileAnswer = "Riofile-answers"
+	defaultRiofile       = "DollyFile"
+	defaultRiofileAnswer = "DollyFile-answers"
 
 	defaultRiofileContent = `
 services:
@@ -52,7 +52,7 @@ func LoadRiofile(path string) ([]byte, error) {
 		if err != nil {
 			return nil, err
 		}
-		// named Riofile, has either valid yaml or templating
+		// named DollyFile, has either valid yaml or templating
 		var r map[string]interface{}
 		if err := yaml.Unmarshal(content, &r); err == nil || bytes.Contains(content, []byte("goTemplate:")) {
 			return content, nil
@@ -60,7 +60,7 @@ func LoadRiofile(path string) ([]byte, error) {
 		// named Dockerfile
 		return []byte(fmt.Sprintf(defaultRiofileContentWithDockerfile, getCurrentDir(), filepath.Base(path), filepath.Dir(path))), nil
 	}
-	// assumed Riofile
+	// assumed DollyFile
 	if _, err := os.Stat(defaultRiofile); err == nil {
 		return ioutil.ReadFile(defaultRiofile)
 	}

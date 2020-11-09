@@ -1,6 +1,7 @@
 package rbac
 
 import (
+	"github.com/rancher/dolly/pkg/dollyfile"
 	"github.com/rancher/dolly/pkg/types"
 	"github.com/rancher/dolly/pkg/types/convert/labels"
 	"github.com/rancher/dolly/pkg/types/utils"
@@ -11,25 +12,29 @@ import (
 	"k8s.io/apimachinery/pkg/runtime"
 )
 
-func Convert(service types.Service) []runtime.Object {
-	labels := labels.SelectorLabels(service)
-	subject := subject(service)
-	if subject == nil {
-		return nil
+type Plugin struct{}
+
+func (p Plugin) Convert(rf *dollyfile.DollyFile) (result []runtime.Object) {
+	for _, service := range rf.Services {
+		labels := labels.SelectorLabels(service)
+		subject := subject(service)
+		if subject == nil {
+			return nil
+		}
+
+		var result []runtime.Object
+
+		// serviceAccount
+		result = append(result, serviceAccount(labels, *subject))
+
+		// role and rolebindings
+		result = append(result, roles(*subject, service, labels)...)
+		result = append(result, rules(*subject, service, labels)...)
+
+		// clusterrole and clusterrolebindings
+		result = append(result, clusterRoles(service, *subject, labels)...)
+		result = append(result, clusterRules(service, *subject, labels)...)
 	}
-
-	var result []runtime.Object
-
-	// serviceAccount
-	result = append(result, serviceAccount(labels, *subject))
-
-	// role and rolebindings
-	result = append(result, roles(*subject, service, labels)...)
-	result = append(result, rules(*subject, service, labels)...)
-
-	// clusterrole and clusterrolebindings
-	result = append(result, clusterRoles(service, *subject, labels)...)
-	result = append(result, clusterRules(service, *subject, labels)...)
 
 	return result
 }

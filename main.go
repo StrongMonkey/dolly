@@ -6,6 +6,7 @@ import (
 
 	_ "github.com/rancher/wrangler/pkg/generated/controllers/apps/v1"
 	_ "github.com/rancher/wrangler/pkg/generated/controllers/core/v1"
+	_ "github.com/rancher/wrangler/pkg/generated/controllers/networking.k8s.io/v1"
 	_ "github.com/rancher/wrangler/pkg/generated/controllers/rbac/v1"
 )
 

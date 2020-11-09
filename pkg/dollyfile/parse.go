@@ -1,4 +1,4 @@
-package riofile
+package dollyfile
 
 import (
 	"bytes"
@@ -10,15 +10,15 @@ import (
 	"k8s.io/apimachinery/pkg/runtime"
 )
 
-// Parse converts a textfile into a Riofile struct
-func Parse(contents []byte, namespace string, answers template.AnswerCallback) (*Riofile, error) {
+// Parse converts a textfile into a DollyFile struct
+func Parse(contents []byte, namespace string, answers template.AnswerCallback) (*DollyFile, error) {
 	k8s, objs, err := isK8SYaml(contents)
 	if err != nil {
 		return nil, err
 	}
 
 	if k8s {
-		return &Riofile{
+		return &DollyFile{
 			Kubernetes: objs,
 		}, nil
 	}
@@ -28,12 +28,12 @@ func Parse(contents []byte, namespace string, answers template.AnswerCallback) (
 		return nil, err
 	}
 
-	s := Schema.Schema("Riofile")
+	s := Schema.Schema("DollyFile")
 	if err := s.Mapper.ToInternal(data); err != nil {
 		return nil, err
 	}
 
-	rf := &Riofile{}
+	rf := &DollyFile{}
 	if err := convert.ToObj(data, rf); err != nil {
 		return nil, err
 	}
@@ -41,7 +41,7 @@ func Parse(contents []byte, namespace string, answers template.AnswerCallback) (
 	return renderK8sObject(rf, namespace)
 }
 
-func renderK8sObject(rf *Riofile, namespace string) (*Riofile, error) {
+func renderK8sObject(rf *DollyFile, namespace string) (*DollyFile, error) {
 	if rf.Manifest != "" {
 		objs, err := wyaml.ToObjects(bytes.NewBufferString(rf.Manifest))
 		if err != nil {

@@ -3,6 +3,7 @@ package deployment
 import (
 	"sort"
 
+	"github.com/rancher/dolly/pkg/dollyfile"
 	"github.com/rancher/dolly/pkg/types"
 	"github.com/rancher/dolly/pkg/types/convert/labels"
 	"github.com/rancher/dolly/pkg/types/utils"
@@ -13,24 +14,29 @@ import (
 	"k8s.io/apimachinery/pkg/runtime"
 )
 
-func Convert(service types.Service) runtime.Object {
-	podTemplateSpec := populatePodTemplate(service)
+type Plugin struct{}
 
-	cp := newControllerParams(service, podTemplateSpec)
-	if service.Spec.Global {
-		return daemonset(service, cp)
-	} else if len(cp.VolumeTemplates) > 0 {
-		return statefulset(service, cp)
-	} else {
-		return deployment(service, cp)
+func (p Plugin) Convert(rf *dollyfile.DollyFile) (ret []runtime.Object) {
+	for _, svc := range rf.Services {
+		podTemplateSpec := populatePodTemplate(svc)
+
+		cp := newControllerParams(svc, podTemplateSpec)
+		if svc.Spec.Global {
+			ret = append(ret, daemonset(svc, cp))
+		} else if len(cp.VolumeTemplates) > 0 {
+			ret = append(ret, statefulset(svc, cp))
+		} else {
+			ret = append(ret, deployment(svc, cp))
+		}
 	}
+	return ret
 }
 
 func statefulset(service types.Service, cp *controllerParams) runtime.Object {
 	ss := &appsv1.StatefulSet{
 		ObjectMeta: metav1.ObjectMeta{
-			Namespace: service.Namespace,
-			Name: service.Name,
+			Namespace:   service.Namespace,
+			Name:        service.Name,
 			Labels:      cp.Labels,
 			Annotations: cp.Annotations,
 		},
@@ -54,8 +60,8 @@ func statefulset(service types.Service, cp *controllerParams) runtime.Object {
 func deployment(service types.Service, cp *controllerParams) runtime.Object {
 	dep := &appsv1.Deployment{
 		ObjectMeta: metav1.ObjectMeta{
-			Name: service.Name,
-			Namespace: service.Namespace,
+			Name:        service.Name,
+			Namespace:   service.Namespace,
 			Labels:      cp.Labels,
 			Annotations: cp.Annotations,
 		},
@@ -81,8 +87,8 @@ func deployment(service types.Service, cp *controllerParams) runtime.Object {
 func daemonset(service types.Service, cp *controllerParams) runtime.Object {
 	ds := &appsv1.DaemonSet{
 		ObjectMeta: metav1.ObjectMeta{
-			Namespace: service.Namespace,
-			Name: service.Name,
+			Namespace:   service.Namespace,
+			Name:        service.Name,
 			Labels:      cp.Labels,
 			Annotations: cp.Annotations,
 		},

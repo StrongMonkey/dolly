@@ -15,6 +15,7 @@ var (
 	RestConfig   *rest.Config
 	Kubeconfig   string
 	Debug        bool
+	RdnsDomain   string
 )
 
 func New() *cobra.Command {
@@ -32,6 +33,8 @@ func New() *cobra.Command {
 		NewKillCommand(),
 		NewRmCommand(),
 		NewLogCommand(),
+		NewConfigCommand(),
+		NewSecretCommand(),
 	)
 	return root
 }
@@ -57,6 +60,6 @@ func (a *Dolly) PersistentPre(cmd *cobra.Command, args []string) error {
 	k8s := kubernetes.NewForConfigOrDie(config)
 	K8sInterface = k8s
 	RestConfig = config
-	Apply = apply.New(k8s.Discovery(), apply.NewClientFactory(config)).WithRateLimiting(20.0)
+	Apply = apply.New(k8s.Discovery(), apply.NewClientFactory(config)).WithRateLimiting(20.0).WithSetID("dolly")
 	return nil
 }

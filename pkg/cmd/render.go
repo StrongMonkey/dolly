@@ -10,7 +10,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/rancher/dolly/pkg/riofile"
+	"github.com/rancher/dolly/pkg/dollyfile"
 	"github.com/rancher/dolly/pkg/template"
 	cli "github.com/rancher/wrangler-cli"
 	gvk2 "github.com/rancher/wrangler/pkg/gvk"
@@ -35,9 +35,9 @@ func NewRenderCommand() *cobra.Command {
 }
 
 type Render struct {
-	File       string `name:"file" usage:"Path to riofile, can point to local file path, https links or stdin(-)" default:"Riofile" short:"f"`
+	File       string `name:"file" usage:"Path to riofile, can point to local file path, https links or stdin(-)" default:"DollyFile" short:"f"`
 	Namespace  string `name:"namespace" usage:"Namespace to install" default:"default" short:"n"`
-	AnswerFile string `name:"answer-file" usage:"Answer file set for riofile" default:"Riofile-answers" short:"a"`
+	AnswerFile string `name:"answer-file" usage:"Answer file set for riofile" default:"DollyFile-answers" short:"a"`
 	Version    string `name:"version" usage:"Helm chart version to create" short:"v"`
 	ChartName  string `name:"chart-name" usage:"Chart name to be created"`
 	// todo: add more parameters
@@ -52,12 +52,12 @@ func (r Render) Run(cmd *cobra.Command, args []string) error {
 		return fmt.Errorf("helm version is required. Use --version")
 	}
 
-	content, answers, err := riofile.LoadFileAndAnswer(r.File, r.AnswerFile)
+	content, answers, err := dollyfile.LoadFileAndAnswer(r.File, r.AnswerFile)
 	if err != nil {
 		return err
 	}
 
-	rf, err := riofile.Parse(content, r.Namespace, template.AnswersFromMap(answers))
+	rf, err := dollyfile.Parse(content, r.Namespace, template.AnswersFromMap(answers))
 	if err != nil {
 		return err
 	}

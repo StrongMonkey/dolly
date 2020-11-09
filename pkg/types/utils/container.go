@@ -3,7 +3,7 @@ package utils
 import (
 	"fmt"
 
-	"github.com/rancher/dolly/pkg/riofile/stringers"
+	"github.com/rancher/dolly/pkg/dollyfile/stringers"
 	"github.com/rancher/dolly/pkg/types"
 	v1 "k8s.io/api/core/v1"
 )

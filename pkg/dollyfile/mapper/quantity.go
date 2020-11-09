@@ -1,7 +1,7 @@
 package mappers
 
 import (
-	"github.com/rancher/dolly/pkg/riofile/stringers"
+	"github.com/rancher/dolly/pkg/dollyfile/stringers"
 	"github.com/rancher/wrangler/pkg/data"
 	"github.com/rancher/wrangler/pkg/schemas"
 	"github.com/rancher/wrangler/pkg/schemas/mappers"

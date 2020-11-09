@@ -24,7 +24,7 @@ require (
 	github.com/mitchellh/copystructure v1.0.0 // indirect
 	github.com/opencontainers/go-digest v1.0.0 // indirect
 	github.com/pkg/errors v0.9.1
-	github.com/rancher/wrangler v0.6.2-0.20200714200521-c61fae623942
+	github.com/rancher/wrangler v0.7.3-0.20201028210318-d73835950c29
 	github.com/rancher/wrangler-cli v0.0.0-20200712180548-91e38f783aa5
 	github.com/sirupsen/logrus v1.6.0
 	github.com/spf13/cobra v1.0.0
@@ -32,7 +32,7 @@ require (
 	github.com/wercker/stern v0.0.0-20190705090245-4fa46dd6987f
 	golang.org/x/oauth2 v0.0.0-20200107190931-bf48bf16ab8d // indirect
 	golang.org/x/time v0.0.0-20200630173020-3af7569d3a1e // indirect
-	gopkg.in/yaml.v2 v2.2.8
+	gopkg.in/yaml.v2 v2.3.0
 	gopkg.in/yaml.v3 v3.0.0-20200313102051-9f266ea9e77c
 	k8s.io/api v0.19.3
 	k8s.io/apimachinery v0.19.3

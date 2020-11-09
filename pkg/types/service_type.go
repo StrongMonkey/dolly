@@ -15,6 +15,12 @@ type Service struct {
 }
 
 type ServiceSpec struct {
+	// Secret used for tls
+	Secret string `json:"secret,omitempty"`
+
+	// Hostname specified to access the service
+	Hostnames []string `json:"hostname,omitempty" alias:"hostname"`
+
 	// Place one pod per node that matches the scheduling rules
 	Global bool `json:"global,omitempty"`
 

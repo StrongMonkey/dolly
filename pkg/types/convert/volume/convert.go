@@ -1,7 +1,7 @@
 package volume
 
 import (
-	"github.com/rancher/dolly/pkg/types"
+	"github.com/rancher/dolly/pkg/dollyfile"
 	v1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/api/resource"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -12,44 +12,45 @@ const (
 	RegistryStorageSize = "10G"
 )
 
-func Convert(service types.Service) []runtime.Object {
-	var volumes []types.Volume
-	for _, volume := range service.Spec.Volumes {
-		volumes = append(volumes, volume)
-	}
+type Plugin struct{}
 
-	for _, c := range service.Spec.Sidecars {
-		for _, volume := range c.Volumes {
-			volumes = append(volumes, volume)
-		}
-	}
+func (p Plugin) Convert(rf *dollyfile.DollyFile) (ret []runtime.Object) {
+	for _, service := range rf.Services {
+		volumes := service.Spec.Volumes
 
-	var result []runtime.Object
-	for _, v := range volumes {
-		if v.Persistent {
-			size := v.Size
-			if size == "" {
-				size = RegistryStorageSize
+		for _, c := range service.Spec.Sidecars {
+			for _, volume := range c.Volumes {
+				volumes = append(volumes, volume)
 			}
+		}
 
-			pv := &v1.PersistentVolumeClaim{
-				ObjectMeta: metav1.ObjectMeta{
-					Name:      v.Name,
-					Namespace: service.Namespace,
-				},
-				Spec: v1.PersistentVolumeClaimSpec{
-					AccessModes: []v1.PersistentVolumeAccessMode{
-						v1.ReadWriteOnce,
+		for _, v := range volumes {
+			if v.Persistent {
+				size := v.Size
+				if size == "" {
+					size = RegistryStorageSize
+				}
+
+				pv := &v1.PersistentVolumeClaim{
+					ObjectMeta: metav1.ObjectMeta{
+						Name:      v.Name,
+						Namespace: service.Namespace,
 					},
-					Resources: v1.ResourceRequirements{
-						Requests: v1.ResourceList{
-							v1.ResourceStorage: resource.MustParse(size),
+					Spec: v1.PersistentVolumeClaimSpec{
+						AccessModes: []v1.PersistentVolumeAccessMode{
+							v1.ReadWriteOnce,
+						},
+						Resources: v1.ResourceRequirements{
+							Requests: v1.ResourceList{
+								v1.ResourceStorage: resource.MustParse(size),
+							},
 						},
 					},
-				},
+				}
+				ret = append(ret, pv)
 			}
-			result = append(result, pv)
 		}
 	}
-	return result
+
+	return ret
 }

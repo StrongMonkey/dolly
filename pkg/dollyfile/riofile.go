@@ -1,4 +1,4 @@
-package riofile
+package dollyfile
 
 import (
 	"fmt"
@@ -8,41 +8,40 @@ import (
 	"strings"
 
 	"github.com/rancher/dolly/pkg/types"
-	"github.com/rancher/dolly/pkg/types/convert/deployment"
-	"github.com/rancher/dolly/pkg/types/convert/rbac"
-	"github.com/rancher/dolly/pkg/types/convert/service"
-	"github.com/rancher/dolly/pkg/types/convert/volume"
 	"github.com/rancher/dolly/pkg/types/utils"
 	v1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 )
 
-type Riofile struct {
-	Services   map[string]types.Service `json:"services,omitempty"`
-	Configs    map[string]v1.ConfigMap  `json:"configs,omitempty"`
-	Kubernetes []runtime.Object         `json:"kubernetes,omitempty"`
-	Manifest   string                   `json:"manifest,omitempty"`
+type Plugin interface {
+	Convert(rf *DollyFile) []runtime.Object
 }
 
-func (r *Riofile) Objects() []runtime.Object {
+type DollyFile struct {
+	Services   map[string]types.Service `json:"services,omitempty"`
+	Configs    map[string]v1.ConfigMap  `json:"configs,omitempty"`
+	Routes     map[string]types.Router  `json:"routes,omitempty"`
+	Kubernetes []runtime.Object         `json:"kubernetes,omitempty"`
+	Manifest   string                   `json:"manifest,omitempty"`
+	Plugins    []Plugin                 `json:"-"`
+}
+
+func (r *DollyFile) Objects() []runtime.Object {
 	var result []runtime.Object
 
 	for _, cm := range r.Configs {
 		result = append(result, &cm)
 	}
 
-	for _, svc := range r.Services {
-		result = append(result, deployment.Convert(svc))
-		result = append(result, rbac.Convert(svc)...)
-		result = append(result, service.Convert(svc))
-		result = append(result, volume.Convert(svc)...)
+	for _, p := range r.Plugins {
+		result = append(result, p.Convert(r)...)
 	}
 
 	result = append(result, r.Kubernetes...)
 	return result
 }
 
-func (r *Riofile) Build(push bool) error {
+func (r *DollyFile) Build(push bool) error {
 	for i, service := range r.Services {
 		containers := utils.ToNamedContainers(service)
 		for j, container := range containers {
@@ -80,7 +79,7 @@ func (r *Riofile) Build(push bool) error {
 	return nil
 }
 
-func (r *Riofile) NeedBuild() bool {
+func (r *DollyFile) NeedBuild() bool {
 	for _, service := range r.Services {
 		containers := utils.ToNamedContainers(service)
 		for _, container := range containers {
