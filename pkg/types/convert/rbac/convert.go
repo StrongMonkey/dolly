@@ -22,8 +22,6 @@ func (p Plugin) Convert(rf *dollyfile.DollyFile) (result []runtime.Object) {
 			return nil
 		}
 
-		var result []runtime.Object
-
 		// serviceAccount
 		result = append(result, serviceAccount(labels, *subject))
 
