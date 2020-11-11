@@ -1,6 +1,6 @@
 # Build
 
-Riofile can be defined to build images from source and dockerfile. It defines a simple build syntax that is similar to [docker-compose](https://docs.docker.com/compose/compose-file/#build) and call docker build directly on the host. 
+Dollyfile can be defined to build images from source and dockerfile. It defines a simple build syntax that is similar to [docker-compose](https://docs.docker.com/compose/compose-file/#build) and call docker build directly on the host. 
 
 Go to the example folder.
 ```bash
@@ -8,7 +8,7 @@ $ git clone git@github.com:StrongMonkey/dolly.git
 $ cd dolly/example/build
 ```
 
-The Riofile is defined as:
+The Dollyfile is defined as:
 
 ```yaml
 services:
@@ -49,8 +49,8 @@ deployment.apps/demo
 service/demo
 ```
 
-Dolly translates build parameters defined in Riofile and send it to docker daemon to build the image. 
+Dolly translates build parameters defined in Dollyfile and send it to docker daemon to build the image. 
 
 Note: the docker daemon has to be connected to kubernetes container runtime in order to use the image.
 
-Note: if no image name is define in Riofile, the current working directory name will be used as image name.
+Note: if no image name is define in Dollyfile, the current working directory name will be used as image name.

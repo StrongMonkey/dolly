@@ -28,7 +28,7 @@ services:
 Run dolly up. It will start watching and applying the compose file. 
 
 ```text
-$ dolly up -f ./riofile
+$ dolly up -f ./dollyfile
 configmap/conf
 deployment.apps/nginx
 service/nginx
@@ -38,7 +38,7 @@ Forwarding from [::1]:8082 -> 80
 
 Dolly translates the compose file into k8s resource(configmap, service, deployment) and deploy them into cluster. You can now visit http://127.0.0.1:8082 to access your service. 
 
-If you make any changes to your riofile, changes will automatically applied.
+If you make any changes to your dollyfile, changes will automatically applied.
 
 ```text
 # Edit the file so that configs print Hello Dolly
@@ -63,7 +63,7 @@ services:
 ```
 
 ```text
-$ dolly up -f ./riofile
+$ dolly up -f ./dollyfile
 configmap/conf
 deployment.apps/nginx
 service/nginx

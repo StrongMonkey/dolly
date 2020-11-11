@@ -29,15 +29,15 @@ version: %s`
 
 func NewRenderCommand() *cobra.Command {
 	render := cli.Command(&Render{}, cobra.Command{
-		Short: "Creating helm charts based on riofile",
+		Short: "Creating helm charts based on dollyfile",
 	})
 	return render
 }
 
 type Render struct {
-	File       string `name:"file" usage:"Path to riofile, can point to local file path, https links or stdin(-)" default:"DollyFile" short:"f"`
+	File       string `name:"file" usage:"Path to dollyfile, can point to local file path, https links or stdin(-)" default:"DollyFile" short:"f"`
 	Namespace  string `name:"namespace" usage:"Namespace to install" default:"default" short:"n"`
-	AnswerFile string `name:"answer-file" usage:"Answer file set for riofile" default:"DollyFile-answers" short:"a"`
+	AnswerFile string `name:"answer-file" usage:"Answer file set for dollyfile" default:"DollyFile-answers" short:"a"`
 	Version    string `name:"version" usage:"Helm chart version to create" short:"v"`
 	ChartName  string `name:"chart-name" usage:"Chart name to be created"`
 	// todo: add more parameters

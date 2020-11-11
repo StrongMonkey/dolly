@@ -1,7 +1,7 @@
 dolly
 ========
 
-A CLI tool to convert Riofile(docker-compose) into kubernetes manifest and helm chart
+A CLI tool to convert Dollyfile(docker-compose) into kubernetes manifest and helm chart
 
 ## Installing
 
@@ -9,26 +9,26 @@ A CLI tool to convert Riofile(docker-compose) into kubernetes manifest and helm 
 
 ## Running
 
-Dolly is a simple CLI tool that transform Riofile(docker-compose syntax) into kubernetes manifest and helm charts.
+Dolly is a simple CLI tool that transform Dollyfile(docker-compose syntax) into kubernetes manifest and helm charts.
 
 ```text
-Create, manage kubernetes application using riofile
+Create, manage kubernetes application using dollyfile
 
 Usage:
   dolly [flags]
   dolly [command]
 
 Available Commands:
-  build       Run docker build using riofile syntax
+  build       Run docker build using dollyfile syntax
   exec        Exec into pods
   help        Help about any command
   kill        kill/delete pods
   logs        Log deployments/daemonsets/statefulsets/pods
   ps          Show kubernetes deployments/daemonset/statesets
-  push        Run docker build and push using riofile syntax
-  render      Creating helm charts based on riofile
+  push        Run docker build and push using dollyfile syntax
+  render      Creating helm charts based on dollyfile
   rm          remove resources
-  up          Applying kubernetes application using riofile
+  up          Applying kubernetes application using dollyfile
 
 Flags:
       --debug               Enable debug log
@@ -53,7 +53,7 @@ $ mv ./bin/dolly /usr/local/bin
 
 ```bash
 $ export KUBECONFIG=/path/to/your/config
-$ dolly up -f https://raw.githubusercontent.com/StrongMonkey/dolly/master/example/Riofile 
+$ dolly up -f https://raw.githubusercontent.com/StrongMonkey/dolly/master/example/Dollyfile 
 ```
 
 ### Documentation

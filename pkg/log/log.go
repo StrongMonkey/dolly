@@ -9,7 +9,7 @@ import (
 	"text/template"
 
 	"github.com/fatih/color"
-	"github.com/wercker/stern/stern"
+	"github.com/stern/stern/stern"
 	"k8s.io/client-go/kubernetes"
 )
 
@@ -55,14 +55,10 @@ func Output(ctx context.Context, conf *stern.Config, namespace string, k8s kuber
 			existing := tails[id]
 			tailsMutex.RUnlock()
 			if existing != nil {
-				if existing.Active {
-					continue
-				} else { // cleanup failed tail to restart
-					tailsMutex.Lock()
-					tails[id].Close()
-					delete(tails, id)
-					tailsMutex.Unlock()
-				}
+				tailsMutex.Lock()
+				tails[id].Close()
+				delete(tails, id)
+				tailsMutex.Unlock()
 			}
 			tailOpts := &stern.TailOptions{
 				SinceSeconds: int64(conf.Since.Seconds()),
@@ -72,11 +68,11 @@ func Output(ctx context.Context, conf *stern.Config, namespace string, k8s kuber
 				Include:      conf.Include,
 				Namespace:    true,
 			}
-			newTail := stern.NewTail(a.Namespace, a.Pod, a.Container, conf.Template, tailOpts)
+			newTail := stern.NewTail("", a.Namespace, a.Pod, a.Container, conf.Template, tailOpts)
 			tailsMutex.Lock()
 			tails[id] = newTail
 			tailsMutex.Unlock()
-			newTail.Start(logCtx, podInterface, logC)
+			newTail.Start(logCtx, podInterface)
 		}
 	}()
 
@@ -109,7 +105,7 @@ func Format(format string, noColor bool) (*template.Template, error) {
 	case "raw":
 		tpl = "{{.Message}}"
 	default:
-		tpl = "{{color .PodColor .PodName}} {{color .ContainerColor .ContainerName}} {{.Message}}"
+		tpl = "{{color .PodColor .PodName}} {{color .ContainerColor .ContainerName}} {{.Message}}\n"
 		if noColor {
 			tpl = "{{.PodName}} {{.ContainerName}} {{.Message}}"
 		}

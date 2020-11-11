@@ -1,6 +1,6 @@
 # Templating
 
-Riofile embedded with templating function and variable substitutions.
+Dollyfile embedded with templating function and variable substitutions.
 
 Variable substitutions follows the syntax
 

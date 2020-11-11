@@ -21,7 +21,7 @@ var (
 func New() *cobra.Command {
 	root := cli.Command(&Dolly{}, cobra.Command{
 
-		Short: "Create, manage kubernetes application using riofile",
+		Short: "Create, manage kubernetes application using dollyfile",
 	})
 	root.AddCommand(
 		NewUpCommand(),

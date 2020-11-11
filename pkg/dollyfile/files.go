@@ -15,16 +15,16 @@ import (
 )
 
 const (
-	defaultRiofile       = "DollyFile"
-	defaultRiofileAnswer = "DollyFile-answers"
+	defaultDollyfile   = "dolly.yaml"
+	defaultDollyAnswer = "dolly-answer.yaml"
 
-	defaultRiofileContent = `
+	defaultDollyfileContent = `
 services:
   %s:
     image: ./
     ports: 80:8080/http`
 
-	defaultRiofileContentWithDockerfile = `
+	defaultDollyfileContentWithDockerfile = `
 services:
   %s:
     build:
@@ -34,7 +34,7 @@ services:
 )
 
 func LoadFileAndAnswer(path string, answerPath string) ([]byte, map[string]string, error) {
-	riofile, err := LoadRiofile(path)
+	dollyfile, err := LoadDollyfile(path)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -43,10 +43,10 @@ func LoadFileAndAnswer(path string, answerPath string) ([]byte, map[string]strin
 		return nil, nil, err
 	}
 
-	return riofile, answer, nil
+	return dollyfile, answer, nil
 }
 
-func LoadRiofile(path string) ([]byte, error) {
+func LoadDollyfile(path string) ([]byte, error) {
 	if path != "" {
 		content, err := readFile(path)
 		if err != nil {
@@ -58,20 +58,20 @@ func LoadRiofile(path string) ([]byte, error) {
 			return content, nil
 		}
 		// named Dockerfile
-		return []byte(fmt.Sprintf(defaultRiofileContentWithDockerfile, getCurrentDir(), filepath.Base(path), filepath.Dir(path))), nil
+		return []byte(fmt.Sprintf(defaultDollyfileContentWithDockerfile, getCurrentDir(), filepath.Base(path), filepath.Dir(path))), nil
 	}
 	// assumed DollyFile
-	if _, err := os.Stat(defaultRiofile); err == nil {
-		return ioutil.ReadFile(defaultRiofile)
+	if _, err := os.Stat(defaultDollyfile); err == nil {
+		return ioutil.ReadFile(defaultDollyfile)
 	}
 	// assumed Dockerfile
-	return []byte(fmt.Sprintf(defaultRiofileContent, getCurrentDir())), nil
+	return []byte(fmt.Sprintf(defaultDollyfileContent, getCurrentDir())), nil
 }
 
 func LoadAnswer(path string) (map[string]string, error) {
 	if path == "" {
-		if _, err := os.Stat(defaultRiofileAnswer); err == nil {
-			path = defaultRiofileAnswer
+		if _, err := os.Stat(defaultDollyAnswer); err == nil {
+			path = defaultDollyAnswer
 		}
 	}
 	return readAnswers(path)

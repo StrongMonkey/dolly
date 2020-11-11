@@ -135,11 +135,10 @@ func runBuild(image string, build types.ImageBuild) error {
 	args = append(args, context)
 
 	cmd := exec.Command("docker", args...)
-	output := &strings.Builder{}
 	cmd.Stdout = os.Stdout
-	cmd.Stderr = output
+	cmd.Stderr = os.Stderr
 	if err := cmd.Run(); err != nil {
-		return fmt.Errorf("error running docker: %v", output.String())
+		return fmt.Errorf("error running docker: %v", err)
 	}
 	return nil
 }

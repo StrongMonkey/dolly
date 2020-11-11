@@ -9,14 +9,14 @@ import (
 
 func NewPushCommand() *cobra.Command {
 	push := cli.Command(&Push{}, cobra.Command{
-		Short: "Run docker build and push using riofile syntax",
+		Short: "Run docker build and push using dollyfile syntax",
 	})
 	return push
 }
 
 type Push struct {
-	File       string `name:"file" usage:"Path to riofile, can point to local file path, https links or stdin(-)" default:"DollyFile" short:"f"`
-	AnswerFile string `name:"answer-file" usage:"Answer file set for riofile" default:"DollyFile-answers" short:"a"`
+	File       string `name:"file" usage:"Path to dollyfile, can point to local file path, https links or stdin(-)" default:"DollyFile" short:"f"`
+	AnswerFile string `name:"answer-file" usage:"Answer file set for dollyfile" default:"DollyFile-answers" short:"a"`
 }
 
 func (p Push) Run(cmd *cobra.Command, args []string) error {

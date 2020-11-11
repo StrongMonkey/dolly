@@ -26,7 +26,7 @@ import (
 	"github.com/rancher/wrangler/pkg/gvk"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
-	"github.com/wercker/stern/stern"
+	"github.com/stern/stern/stern"
 	v1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/api/meta"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -36,17 +36,17 @@ import (
 
 func NewUpCommand() *cobra.Command {
 	up := cli.Command(&Up{}, cobra.Command{
-		Short: "Applying kubernetes application using riofile",
+		Short: "Applying kubernetes application using dollyfile",
 	})
 	return up
 }
 
 type Up struct {
-	File       string `name:"file" usage:"Path to riofile, can point to local file path, https links or stdin(-)" default:"DollyFile" short:"f"`
+	File       string `name:"file" usage:"Path to dollyfile, can point to local file path, https links or stdin(-)" default:"DollyFile" short:"f"`
 	NoExpose   bool   `name:"no-expose" usage:"Whether to expose service port on localhost"`
 	NoWatch    bool   `name:"no-watch" usage:"Whether to watch dollyfile and apply changes"`
 	Namespace  string `name:"namespace" u2sage:"Namespace to install" default:"default" short:"n"`
-	AnswerFile string `name:"answer-file" usage:"Answer file set for riofile" default:"DollyFile-answers" short:"a"`
+	AnswerFile string `name:"answer-file" usage:"Answer file set for dollyfile" default:"DollyFile-answers" short:"a"`
 }
 
 func (u *Up) Run(cmd *cobra.Command, args []string) error {
@@ -54,7 +54,7 @@ func (u *Up) Run(cmd *cobra.Command, args []string) error {
 		return err
 	}
 
-	rf, err := u.parseRioFileFile()
+	rf, err := u.parseDollyFile()
 	if err != nil {
 		return err
 	}
@@ -96,12 +96,12 @@ func (u *Up) Watch(ctx context.Context, rf *dollyfile.DollyFile) {
 			// watch for events
 			case event := <-watcher.Events:
 				if event.Op&fsnotify.Write == fsnotify.Write || event.Op&fsnotify.Rename == fsnotify.Rename {
-					rf, err = u.parseRioFileFile()
+					rf, err = u.parseDollyFile()
 					if err != nil {
-						logrus.Errorf("Failed to parse riofile, error: %v", err)
+						logrus.Errorf("Failed to parse dollyfile, error: %v", err)
 					}
 					if err := u.do(rf); err != nil {
-						logrus.Errorf("Failed to apply riofile, error: %v", err)
+						logrus.Errorf("Failed to apply dollyfile, error: %v", err)
 					}
 				}
 				if err := watcher.Add(event.Name); err != nil {
@@ -127,7 +127,7 @@ func (u *Up) Watch(ctx context.Context, rf *dollyfile.DollyFile) {
 	return
 }
 
-func (u *Up) parseRioFileFile() (*dollyfile.DollyFile, error) {
+func (u *Up) parseDollyFile() (*dollyfile.DollyFile, error) {
 	content, answers, err := dollyfile.LoadFileAndAnswer(u.File, u.AnswerFile)
 	if err != nil {
 		return nil, err
@@ -250,7 +250,7 @@ func (u *Up) Log(ctx context.Context, rf *dollyfile.DollyFile) error {
 		Template:       template,
 		TailLines:      &[]int64{200}[0],
 		Since:          time.Hour * 24,
-		ContainerState: []string{stern.RUNNING, stern.WAITING, stern.TERMINATED},
+		ContainerState: stern.RUNNING,
 	}
 
 	return log.Output(ctx, config, u.Namespace, K8sInterface)

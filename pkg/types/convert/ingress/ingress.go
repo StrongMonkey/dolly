@@ -64,7 +64,7 @@ func (p Plugin) Convert(rf *dollyfile.DollyFile) (ret []runtime.Object) {
 			})
 			ingress.Spec.TLS = append(ingress.Spec.TLS, v1.IngressTLS{
 				Hosts:      hostnames,
-				SecretName: service.Spec.Secret,
+				SecretName: service.Spec.TLS,
 			})
 		}
 		ret = append(ret, ingress)

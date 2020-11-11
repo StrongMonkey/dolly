@@ -137,7 +137,7 @@ services:
     permissions:
     - 'create,get,list certmanager.k8s.io/*'
 
-# Use Riofile's answer/question templating
+# Use Dollyfile's answer/question templating
 template:
   goTemplate: true # use go templating
   envSubst: true # use ENV vars during templating

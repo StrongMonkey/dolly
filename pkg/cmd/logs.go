@@ -1,17 +1,15 @@
 package cmd
 
 import (
-	"fmt"
 	"regexp"
 	"time"
 
 	"github.com/rancher/dolly/pkg/log"
-
 	"github.com/rancher/dolly/pkg/table/types"
 	cli "github.com/rancher/wrangler-cli"
 	"github.com/rancher/wrangler/pkg/kv"
 	"github.com/spf13/cobra"
-	"github.com/wercker/stern/stern"
+	"github.com/stern/stern/stern"
 	appsv1 "k8s.io/api/apps/v1"
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -27,10 +25,10 @@ func NewLogCommand() *cobra.Command {
 }
 
 type Logs struct {
-	Namespace      string `name:"namespace" usage:"specify namespace" default:"default"`
+	Namespace      string `name:"namespace" usage:"specify namespace" default:"default" short:"n"`
 	Container      string `name:"container" usage:"Print the logs of a specific container" short:"c"`
 	InitContainers bool   `name:"init" usage:"Include or exclude init containers" default:"true"`
-	NoColor        bool   `name:"no-color" usage:"Dont show color when logging" default:"false" short:"n"`
+	NoColor        bool   `name:"no-color" usage:"Dont show color when logging" default:"false"`
 	Output         string `name:"output" usage:"Output format: [default, raw, json]"`
 	Previous       bool   `name:"previous" usage:"Print the logs for the previous instance of the container in a pod if it exists, excludes running" short:"p"`
 	Since          string `name:"since" desc:"Logs since a certain time, either duration (5s, 2m, 3h) or RFC3339" default:"24h"`
@@ -39,9 +37,6 @@ type Logs struct {
 }
 
 func (l *Logs) Run(cmd *cobra.Command, args []string) error {
-	if len(args) != 1 {
-		return fmt.Errorf("require exactly one parameter")
-	}
 	config := &stern.Config{
 		LabelSelector:  labels.Everything(),
 		Timestamps:     l.Timestamps,
@@ -96,9 +91,9 @@ func (l *Logs) Run(cmd *cobra.Command, args []string) error {
 
 	if len(config.ContainerState) == 0 {
 		if l.Previous {
-			config.ContainerState = []string{stern.TERMINATED}
+			config.ContainerState = stern.TERMINATED
 		} else {
-			config.ContainerState = []string{stern.RUNNING, stern.WAITING}
+			config.ContainerState = stern.RUNNING
 		}
 	}
 

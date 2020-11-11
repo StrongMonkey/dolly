@@ -5,7 +5,6 @@ go 1.12
 replace (
 	github.com/Azure/go-autorest => github.com/Azure/go-autorest v13.2.0+incompatible
 	github.com/matryer/moq => github.com/rancher/moq v0.0.0-20190404221404-ee5226d43009
-	github.com/wercker/stern => github.com/StrongMonkey/stern v0.0.0-20200722225427-1373118cb3e0
 )
 
 require (
@@ -16,7 +15,7 @@ require (
 	github.com/docker/distribution v2.7.1+incompatible
 	github.com/docker/go-units v0.4.0
 	github.com/drone/envsubst v1.0.2
-	github.com/fatih/color v1.7.0
+	github.com/fatih/color v1.9.0
 	github.com/fsnotify/fsnotify v1.4.9
 	github.com/huandu/xstrings v1.3.2 // indirect
 	github.com/imdario/mergo v0.3.9 // indirect
@@ -27,9 +26,9 @@ require (
 	github.com/rancher/wrangler v0.7.3-0.20201028210318-d73835950c29
 	github.com/rancher/wrangler-cli v0.0.0-20200712180548-91e38f783aa5
 	github.com/sirupsen/logrus v1.6.0
-	github.com/spf13/cobra v1.0.0
+	github.com/spf13/cobra v1.1.1
+	github.com/stern/stern v1.13.1-0.20201110142910-8fd6aac68348
 	github.com/stretchr/testify v1.6.1
-	github.com/wercker/stern v0.0.0-20190705090245-4fa46dd6987f
 	golang.org/x/oauth2 v0.0.0-20200107190931-bf48bf16ab8d // indirect
 	golang.org/x/time v0.0.0-20200630173020-3af7569d3a1e // indirect
 	gopkg.in/yaml.v2 v2.3.0
