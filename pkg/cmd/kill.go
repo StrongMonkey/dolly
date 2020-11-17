@@ -27,14 +27,13 @@ func (k *Kill) Run(cmd *cobra.Command, args []string) error {
 		return fmt.Errorf("require at least one argument")
 	}
 
-	var namespace string
-	namespace, args[0] = kv.Split(args[0], ":")
-	if namespace != "" {
-		k.Namespace = namespace
-	}
-
 	for _, arg := range args {
-		if err := K8sInterface.CoreV1().Pods(k.Namespace).Delete(cmd.Context(), strings.TrimPrefix(arg, "pod/"), metav1.DeleteOptions{}); err != nil {
+		var namespace string
+		namespace, arg = kv.Split(arg, ":")
+		if namespace == "" {
+			namespace = k.Namespace
+		}
+		if err := K8sInterface.CoreV1().Pods(namespace).Delete(cmd.Context(), strings.TrimPrefix(arg, "pod/"), metav1.DeleteOptions{}); err != nil {
 			return err
 		}
 	}
