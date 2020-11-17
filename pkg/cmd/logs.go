@@ -46,6 +46,13 @@ func (l *Logs) Run(cmd *cobra.Command, args []string) error {
 
 	var result runtime.Object
 	var err error
+
+	var namespace string
+	namespace, args[0] = kv.Split(args[0], ":")
+	if namespace != "" {
+		l.Namespace = namespace
+	}
+
 	t, resourceName := kv.Split(args[0], "/")
 	if t == types.DeploymentType {
 		result, err = K8sInterface.AppsV1().Deployments(l.Namespace).Get(cmd.Context(), resourceName, metav1.GetOptions{})

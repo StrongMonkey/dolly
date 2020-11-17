@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/rancher/wrangler/pkg/kv"
+
 	"github.com/rancher/dolly/pkg/kubectl"
 	cli "github.com/rancher/wrangler-cli"
 	"github.com/spf13/cobra"
@@ -26,6 +28,12 @@ type Exec struct {
 func (e *Exec) Run(cmd *cobra.Command, args []string) error {
 	if len(args) < 2 {
 		return fmt.Errorf("at least two parameters are needed")
+	}
+
+	var namespace string
+	namespace, args[0] = kv.Split(args[0], ":")
+	if namespace != "" {
+		e.Namespace = namespace
 	}
 
 	args[0] = strings.TrimPrefix(args[0], "pod/")

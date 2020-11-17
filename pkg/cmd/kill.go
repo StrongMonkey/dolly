@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/rancher/wrangler/pkg/kv"
+
 	cli "github.com/rancher/wrangler-cli"
 	"github.com/spf13/cobra"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -23,6 +25,12 @@ type Kill struct {
 func (k *Kill) Run(cmd *cobra.Command, args []string) error {
 	if len(args) == 0 {
 		return fmt.Errorf("require at least one argument")
+	}
+
+	var namespace string
+	namespace, args[0] = kv.Split(args[0], ":")
+	if namespace != "" {
+		k.Namespace = namespace
 	}
 
 	for _, arg := range args {
