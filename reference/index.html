@@ -1,0 +1,593 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.1.5">
+    
+    
+      
+        <title>Reference - Dolly - Compose file for k8s</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.21aed14c.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.196e0c26.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#2094f3">
+        
+      
+    
+    
+    
+      
+        
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Work+Sans:300,400,400i,700%7C&display=fallback">
+        <style>body,input{font-family:"Work Sans",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="blue" data-md-color-accent="">
+      
+  
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#reference" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href=".." title="Dolly - Compose file for k8s" class="md-header-nav__button md-logo" aria-label="Dolly - Compose file for k8s">
+      
+  <img src="../assets/logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            Dolly - Compose file for k8s
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              Reference
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/StrongMonkey/dolly/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Dolly - Compose file for k8s" class="md-nav__button md-logo" aria-label="Dolly - Compose file for k8s">
+      
+  <img src="../assets/logo.svg" alt="logo">
+
+    </a>
+    Dolly - Compose file for k8s
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/StrongMonkey/dolly/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href=".." class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../installation/" class="md-nav__link">
+      Installation
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../quickstart/" class="md-nav__link">
+      Quick start
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" checked>
+    <label class="md-nav__link" for="nav-4">
+      Compose Reference
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Compose Reference" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        <span class="md-nav__icon md-icon"></span>
+        Compose Reference
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+    <a href="./" class="md-nav__link md-nav__link--active">
+      Reference
+    </a>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../templating/" class="md-nav__link">
+      Templating
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5" >
+    <label class="md-nav__link" for="nav-5">
+      Advanced
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Advanced" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        <span class="md-nav__icon md-icon"></span>
+        Advanced
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../build/" class="md-nav__link">
+      Build
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../helm/" class="md-nav__link">
+      Helm
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/StrongMonkey/dolly/edit/master/docs/reference.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                <h1 id="reference">Reference<a class="headerlink" href="#reference" title="Permanent link">&para;</a></h1>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Configmap</span>
+<span class="nt">configs</span><span class="p">:</span>
+  <span class="nt">config-foo</span><span class="p">:</span>     <span class="c1"># specify name in the section</span>
+    <span class="nt">key1</span><span class="p">:</span> <span class="p p-Indicator">|-</span>      <span class="c1"># specify key and data in the section</span>
+
+    <span class="nt">key2</span><span class="p">:</span> <span class="p p-Indicator">|-</span>
+
+
+<span class="c1"># Service</span>
+<span class="nt">services</span><span class="p">:</span>
+  <span class="nt">service-foo</span><span class="p">:</span>
+
+    <span class="c1"># Scale setting</span>
+    <span class="nt">scale</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">2</span> <span class="c1"># Specify scale of the service. If you pass range `1-10`, it will enable autoscaling which can be scale from 1 to 10. Default to 1 if omitted</span>
+
+    <span class="c1"># Revision setting</span>
+    <span class="nt">app</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">my-app</span> <span class="c1"># Specify app name. Defaults to service name. This is used to aggregate services that belongs to the same app.</span>
+    <span class="c1"># Container configuration</span>
+    <span class="nt">image</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">nginx</span> <span class="c1"># Container image. Required if not setting build</span>
+    <span class="nt">imagePullPolicy</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">always</span> <span class="c1"># Image pull policy. Options: (always/never/ifNotProsent), defaults to ifNotProsent.</span>
+    <span class="nt">build</span><span class="p">:</span> <span class="c1"># Setting build parameters. Set if you want to build image for source</span>
+      <span class="nt">args</span><span class="p">:</span> <span class="c1"># Build arguments to pass to buildkit https://docs.docker.com/engine/reference/builder/#understand-how-arg-and-from-interact. Optional</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">foo=bar</span>
+      <span class="nt">dockerfile</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Dockerfile</span> <span class="c1"># The name of Dockerfile to look for.  This is the full path relative to the repo root. Defaults to `Dockerfile`.</span>
+      <span class="nt">context</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">./</span>  <span class="c1"># Docker build context. Defaults to .</span>
+      <span class="nt">cache_from</span><span class="p">:</span> <span class="c1"># a list of string. A list of images that the engine uses for cache resolution.</span>
+      <span class="nt">labels</span><span class="p">:</span> <span class="c1"># map of string. Add metadata to the resulting image using Docker labels.</span>
+        <span class="nt">foo</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">bar</span>
+      <span class="nt">shm_size</span><span class="p">:</span> <span class="c1"># Set the size of the /dev/shm partition for this build’s containers</span>
+      <span class="nt">network</span><span class="p">:</span> <span class="c1"># Set the network containers connect to for the RUN instructions during build</span>
+      <span class="nt">target</span><span class="p">:</span> <span class="c1"># build the specified stage as defined inside the Dockerfile</span>
+    <span class="nt">command</span><span class="p">:</span> <span class="c1"># Container entrypoint, not executed within a shell. The docker image&#39;s ENTRYPOINT is used if this is not provided.</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">echo</span>
+    <span class="nt">args</span><span class="p">:</span> <span class="c1"># Arguments to the entrypoint. The docker image&#39;s CMD is used if this is not provided.</span>
+    <span class="p p-Indicator">-</span> <span class="s">&quot;hello</span><span class="nv"> </span><span class="s">world&quot;</span>
+    <span class="nt">workingDir</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/home</span> <span class="c1"># Container working directory</span>
+    <span class="nt">ports</span><span class="p">:</span> <span class="c1"># Container ports, format: `$(servicePort:)containerPort/protocol`. Required if user wants to expose service through gateway</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">8080:80/http,web</span> <span class="c1"># Service port 8080 will be mapped to container port 80 with protocol http, named `web`</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">8080/http,admin,internal=true</span> <span class="c1"># Service port 8080 will be mapped to container port 8080 with protocol http, named `admin`, internal port(will not be exposed through gateway)</span>
+    <span class="nt">env</span><span class="p">:</span> <span class="c1"># Specify environment variable</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">POD_NAME=$(self/name)</span> <span class="c1"># Mapped to &quot;metadata.name&quot;</span>
+    <span class="c1">#</span>
+    <span class="c1"># &quot;self/name&quot;:           &quot;metadata.name&quot;,</span>
+    <span class="c1"># &quot;self/namespace&quot;:      &quot;metadata.namespace&quot;,</span>
+    <span class="c1"># &quot;self/labels&quot;:         &quot;metadata.labels&quot;,</span>
+    <span class="c1"># &quot;self/annotations&quot;:    &quot;metadata.annotations&quot;,</span>
+    <span class="c1"># &quot;self/node&quot;:           &quot;spec.nodeName&quot;,</span>
+    <span class="c1"># &quot;self/serviceAccount&quot;: &quot;spec.serviceAccountName&quot;,</span>
+    <span class="c1"># &quot;self/hostIp&quot;:         &quot;status.hostIP&quot;,</span>
+    <span class="c1"># &quot;self/nodeIp&quot;:         &quot;status.hostIP&quot;,</span>
+    <span class="c1"># &quot;self/ip&quot;:             &quot;status.podIP&quot;,</span>
+    <span class="c1">#</span>
+    <span class="nt">cpus</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">100m</span> <span class="c1"># Cpu request, format 0.5 or 500m. 500m = 0.5 core. If not set, cpu request will not be set. https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/</span>
+    <span class="nt">memory</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">100Mi</span> <span class="c1"># Memory request. 100Mi, available options. If not set, memory request will not be set. https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/</span>
+    <span class="nt">secrets</span><span class="p">:</span> <span class="c1"># Specify secret to mount. Format: `$name/$key:/path/to/file`. Secret has to be pre-created in the same namespace</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">foo/bar:/my/password</span>
+    <span class="nt">configs</span><span class="p">:</span> <span class="c1"># Specify configmap to mount. Format: `$name/$key:/path/to/file`.</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">foo/bar:/my/config</span>
+    <span class="nt">livenessProbe</span><span class="p">:</span> <span class="c1"># LivenessProbe setting. https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/</span>
+      <span class="nt">httpGet</span><span class="p">:</span>
+        <span class="nt">path</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/ping</span>
+        <span class="nt">port</span><span class="p">:</span> <span class="s">&quot;9997&quot;</span> <span class="c1"># port must be string</span>
+      <span class="nt">initialDelaySeconds</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">10</span>
+    <span class="nt">readinessProbe</span><span class="p">:</span> <span class="c1"># ReadinessProbe https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/</span>
+      <span class="nt">failureThreshold</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">7</span>
+      <span class="nt">httpGet</span><span class="p">:</span>
+        <span class="nt">path</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/ready</span>
+        <span class="nt">port</span><span class="p">:</span> <span class="s">&quot;9997&quot;</span> <span class="c1"># port must be string</span>
+    <span class="nt">stdin</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span> <span class="c1"># Whether this container should allocate a buffer for stdin in the container runtime</span>
+    <span class="nt">stdinOnce</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span> <span class="c1"># Whether the container runtime should close the stdin channel after it has been opened by a single attach. When stdin is true the stdin stream will remain open across multiple attach sessions.</span>
+    <span class="nt">tty</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span> <span class="c1"># Whether this container should allocate a TTY for itself</span>
+    <span class="nt">runAsUser</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1000</span> <span class="c1"># The UID to run the entrypoint of the container process.</span>
+    <span class="nt">runAsGroup</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1000</span> <span class="c1"># The GID to run the entrypoint of the container process</span>
+    <span class="nt">readOnlyRootFilesystem</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span> <span class="c1"># Whether this container has a read-only root filesystem</span>
+    <span class="nt">privileged</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span> <span class="c1"># Run container in privileged mode.</span>
+
+    <span class="nt">nodeAffinity</span><span class="p">:</span> <span class="c1"># Describes node affinity scheduling rules for the pod.</span>
+    <span class="nt">podAffinity</span><span class="p">:</span>  <span class="c1"># Describes pod affinity scheduling rules (e.g. co-locate this pod in the same node, zone, etc. as some other pod(s)).</span>
+    <span class="nt">podAntiAffinity</span><span class="p">:</span> <span class="c1"># Describes pod anti-affinity scheduling rules (e.g. avoid putting this pod in the same node, zone, etc. as some other pod(s)).</span>
+
+    <span class="nt">hostAliases</span><span class="p">:</span> <span class="c1"># Hostname alias</span>
+      <span class="p p-Indicator">-</span> <span class="nt">ip</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">127.0.0.1</span>
+        <span class="nt">hostnames</span><span class="p">:</span>
+        <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">example.com</span>
+    <span class="nt">hostNetwork</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span> <span class="c1"># Use host networking, defaults to False. If this option is set, the ports that will be used must be specified.</span>
+    <span class="nt">imagePullSecrets</span><span class="p">:</span> <span class="c1"># Image pull secret https://kubernetes.io/docs/concepts/containers/images#specifying-imagepullsecrets-on-a-pod</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">secret1</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">secret2</span>
+
+    <span class="c1"># Containers: Specify sidecars. Other options are available in container section above, this is limited example</span>
+    <span class="nt">containers</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">init</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span> <span class="c1"># Init container</span>
+      <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">my-init</span>
+      <span class="nt">image</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ubuntu</span>
+      <span class="nt">args</span><span class="p">:</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;echo&quot;</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;hello</span><span class="nv"> </span><span class="s">world&quot;</span>
+
+
+    <span class="c1"># Permission for service</span>
+    <span class="c1">#</span>
+    <span class="c1">#   global_permissions:</span>
+    <span class="c1">#   - &#39;create,get,list certmanager.k8s.io/*&#39;</span>
+    <span class="c1">#</span>
+    <span class="c1">#   this will give workload abilities to **create, get, list** **all** resources in api group **certmanager.k8s.io**.</span>
+    <span class="c1">#</span>
+    <span class="c1">#   If you want to hook up with an existing role:</span>
+    <span class="c1">#</span>
+    <span class="c1">#</span>
+    <span class="c1">#   global_permissions:</span>
+    <span class="c1">#   - &#39;role=cluster-admin&#39;</span>
+    <span class="c1">#</span>
+    <span class="c1">#</span>
+    <span class="c1">#   - `permisions`: Specify current namespace permission of workload</span>
+    <span class="c1">#</span>
+    <span class="c1">#   Example:</span>
+    <span class="c1">#</span>
+    <span class="c1">#   permissions:</span>
+    <span class="c1">#   - &#39;create,get,list certmanager.k8s.io/*&#39;</span>
+    <span class="c1">#</span>
+    <span class="c1">#</span>
+    <span class="c1">#   This will give workload abilities to **create, get, list** **all** resources in api group **certmanager.k8s.io** in **current** namespace.</span>
+    <span class="c1">#</span>
+    <span class="c1">#   Example:</span>
+    <span class="c1">#</span>
+    <span class="c1">#   permissions:</span>
+    <span class="c1">#   - &#39;create,get,list /node/proxy&#39;</span>
+    <span class="c1">#</span>
+    <span class="c1">#    This will give subresource for node/proxy</span>
+
+    <span class="c1"># Optional, will created and mount serviceAccountToken into pods with corresponding permissions</span>
+    <span class="nt">global_permissions</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="s">&#39;create,get,list</span><span class="nv"> </span><span class="s">certmanager.k8s.io/*&#39;</span>
+    <span class="nt">permissions</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="s">&#39;create,get,list</span><span class="nv"> </span><span class="s">certmanager.k8s.io/*&#39;</span>
+
+<span class="c1"># Use Dollyfile&#39;s answer/question templating</span>
+<span class="nt">template</span><span class="p">:</span>
+  <span class="nt">goTemplate</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span> <span class="c1"># use go templating</span>
+  <span class="nt">envSubst</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span> <span class="c1"># use ENV vars during templating</span>
+
+<span class="c1"># Supply arbitrary kubernetes manifest yaml</span>
+<span class="nt">kubernetes</span><span class="p">:</span>
+  <span class="nt">manifest</span><span class="p">:</span> <span class="p p-Indicator">|-</span>
+    <span class="no">apiVersion: apps/v1</span>
+    <span class="no">kind: Deployment</span>
+    <span class="no">....</span>
+</code></pre></div>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../quickstart/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Quick start
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="../templating/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Templating
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../assets/javascripts/vendor.7e0ee788.min.js"></script>
+      <script src="../assets/javascripts/bundle.b3a72adc.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      
+      <script>
+        app = initialize({
+          base: "..",
+          features: [],
+          search: Object.assign({
+            worker: "../assets/javascripts/worker/search.4ac00218.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+    
+  </body>
+</html>
